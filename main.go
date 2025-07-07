@@ -65,7 +65,7 @@ func main() {
 
 		if strings.HasPrefix(trim, "<Trigger ") {
 			inTrigger = true
-			// Имя триггера может быть на этой же строке
+			// Trigger name can be on the same line
 			if strings.Contains(trim, "<Name>") && strings.Contains(trim, "</Name>") {
 				start := strings.Index(trim, "<Name>") + len("<Name>")
 				end := strings.Index(trim, "</Name>")
@@ -141,7 +141,7 @@ func main() {
 
 	// Prepare headers and collect max widths
 	headers := []string{"LINE", "TRIGGER", "WAVE", "UNIT TO SPAWN", "SPAWN POINT", "APPLIED OWNER"}
-	// Сохраняем все строки как слайсы для удобства
+	// Store all rows as slices for convenience
 	var rows [][]string
 	for _, r := range results {
 		row := []string{
@@ -154,7 +154,7 @@ func main() {
 		}
 		rows = append(rows, row)
 	}
-	// Вычисляем максимальную ширину для каждого столбца
+	// Calculate maximum width for each column
 	colWidths := make([]int, len(headers))
 	for i, h := range headers {
 		colWidths[i] = len(h)
@@ -166,25 +166,25 @@ func main() {
 			}
 		}
 	}
-	// Формируем форматную строку с разделителями
+	// Build format string with separators
 	format := "%-" + fmt.Sprintf("%d", colWidths[0]) + "s"
 	for i := 1; i < len(colWidths); i++ {
 		format += " | % -" + fmt.Sprintf("%d", colWidths[i]) + "s"
 	}
 	format += "\n"
-	// Выводим заголовки
+	// Print headers
 	args := make([]interface{}, len(headers))
 	for i, h := range headers {
 		args[i] = h
 	}
 	fmt.Printf(format, args...)
-	// Пунктирная линия
+	// Dashed line
 	lineLen := colWidths[0]
 	for i := 1; i < len(colWidths); i++ {
 		lineLen += 3 + colWidths[i] // 3 = ' | '
 	}
 	fmt.Println(strings.Repeat("-", lineLen))
-	// Выводим строки
+	// Print rows
 	for _, row := range rows {
 		args := make([]interface{}, len(row))
 		for i, v := range row {
@@ -192,4 +192,4 @@ func main() {
 		}
 		fmt.Printf(format, args...)
 	}
-} 
+}
