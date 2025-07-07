@@ -36,7 +36,12 @@ type SpawnAction struct {
 }
 
 func main() {
-	file, err := os.Open("2nd.txt")
+	if len(os.Args) < 2 {
+		fmt.Println("Usage: spawn-view <filename>")
+		return
+	}
+	filename := os.Args[1]
+	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
