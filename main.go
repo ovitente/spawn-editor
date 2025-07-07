@@ -134,8 +134,57 @@ func main() {
 		}
 	}
 
-	fmt.Printf("%-5s| %-20s| %-10s| %-20s| %-15s| %-15s\n", "LINE", "TRIGGER", "WAVE", "UNIT TO SPAWN", "SPAWN POINT", "APPLIED OWNER")
+	// Prepare headers and collect max widths
+	headers := []string{"LINE", "TRIGGER", "WAVE", "UNIT TO SPAWN", "SPAWN POINT", "APPLIED OWNER"}
+	// Сохраняем все строки как слайсы для удобства
+	var rows [][]string
 	for _, r := range results {
-		fmt.Printf("%04d | %-20s| %-10s| %-20s| %-15s| %-15s\n", r.Line, r.TriggerName, r.Wave, r.Unit, r.SpawnPoint, r.Owner)
+		row := []string{
+			fmt.Sprintf("%04d", r.Line),
+			r.TriggerName,
+			r.Wave,
+			r.Unit,
+			r.SpawnPoint,
+			r.Owner,
+		}
+		rows = append(rows, row)
+	}
+	// Вычисляем максимальную ширину для каждого столбца
+	colWidths := make([]int, len(headers))
+	for i, h := range headers {
+		colWidths[i] = len(h)
+	}
+	for _, row := range rows {
+		for i, val := range row {
+			if len(val) > colWidths[i] {
+				colWidths[i] = len(val)
+			}
+		}
+	}
+	// Формируем форматную строку с разделителями
+	format := "%-" + fmt.Sprintf("%d", colWidths[0]) + "s"
+	for i := 1; i < len(colWidths); i++ {
+		format += " | % -" + fmt.Sprintf("%d", colWidths[i]) + "s"
+	}
+	format += "\n"
+	// Выводим заголовки
+	args := make([]interface{}, len(headers))
+	for i, h := range headers {
+		args[i] = h
+	}
+	fmt.Printf(format, args...)
+	// Пунктирная линия
+	lineLen := colWidths[0]
+	for i := 1; i < len(colWidths); i++ {
+		lineLen += 3 + colWidths[i] // 3 = ' | '
+	}
+	fmt.Println(strings.Repeat("-", lineLen))
+	// Выводим строки
+	for _, row := range rows {
+		args := make([]interface{}, len(row))
+		for i, v := range row {
+			args[i] = v
+		}
+		fmt.Printf(format, args...)
 	}
 } 
