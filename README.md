@@ -2,8 +2,38 @@
 `*.swt` only.
 
 ## Reasons for creation
-Reading plane text of `.swt` files is a pain for the eyes, so i created this tool is created to make modding a bit easier. 
-Tool is targeting Action blocks with name `a_spawnUnitGroupToZone`
+Reading plain text of `.swt` files is a pain for the eyes, so I created this tool to make modding a bit easier. 
+
+It is targeting `<Action>` blocks with name `a_spawnUnitGroupToZone`
+
+## Installation
+
+### Prerequisites
+This tool requires Go programming language to be installed on your system.
+
+#### Linux/Mac
+Install Go using your package manager
+
+#### Windows
+1. Download Go from [https://go.dev/dl/](https://go.dev/dl/)
+2. Run the installer and follow the instructions
+3. Open Command Prompt and verify installation:
+```cmd
+go version
+```
+
+### Building the binary
+```bash
+# Clone or download the source code
+git clone <repository-url>
+cd spawn-editor
+
+# Build the binary
+go build -o spawn-view main.go
+
+# Make it executable (Linux/macOS)
+chmod +x spawn-view
+```
 
 ## Usage
 `spawn-view <filename>`
