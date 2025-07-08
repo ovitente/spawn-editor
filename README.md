@@ -75,3 +75,41 @@ LINE | TRIGGER           | WAVE             | UNIT TO SPAWN       | SPAWN POINT 
 | UNIT TO SPAWN     | The actual unit `sysname` to spawn it |
 | SPAWN POINT       | Area where unit will be spawned |
 | APPLIED OWNER     | Faction on which unit will appear |
+
+## Editing examples
+
+Here is basic schema for spawning with some explanations
+source
+```
+<Action guid="199" disabled="0"><Name>a_spawnUnitGroupToZone</Name>
+  <Param>prm=?</Param>
+  <Param>army</Param>
+  <Param>tank</Param>
+  <Param>Fnd_bradley</Param>
+  <Param>brd_atgm_rotary_cannon_blocks</Param>
+  <Param>cop_1_run</Param>
+  <Param>player</Param>
+  <Param>prm=?</Param>
+  <Param>prm=?</Param>
+  <Param>prm=?</Param>
+  <Param>prm=?</Param>
+  <Param>prm=?</Param>
+</Action>
+```
+
+### Known definitions
+| Parameter | Definition |
+| :------ | :---------------- |
+| <Action guid="199" disabled="0"><Name>a_spawnUnitGroupToZone</Name> | Name and unique ID of the action to do. ID must be unique! |
+| `prm=?` | |
+| `army` | |
+| `tank` | |
+| `Fnd_bradley` | Unit sysname |
+| `brd_atgm_cannon_ceramic` | Names of loadout, taken from *upgrade_presets.xml files |
+| `cop_1_run` | Spawning zone or point. Make sure it exist in your current *.swt file. Otherwise unit will not be spawned. |
+| `player` | Who owns unit after spawn |
+| `prm=?` | |
+| `prm=?` | |
+| `prm=?` | |
+| `prm=?` | |
+| `prm=?` | |
